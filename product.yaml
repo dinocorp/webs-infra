@@ -1,0 +1,39 @@
+---
+organization: 'dinocorp'
+product: 'webs'
+
+description: 'Our webs product does cool stuff'
+
+# Used to generate the README.md
+support:
+  times: '0900-1700'
+  on-call: true
+  people:
+    'Product Owner':
+      name: 'Tea Rex'
+      email: 'trex@dinocorp.org'
+      phone: '0161 452 1212'
+    'Platform Engineer':
+      name: 'Dino Saurus'
+      email: 't@dinocorp.org'
+      phone: '07771 777 777'
+    'Development Lead':
+      name: 'Codey McCodeface'
+      email: 'codey@codeface.org'
+      phone: '07728 222 222'
+
+accounts:
+  dev:
+    id: '123456789' # Used to guard against running against incorrect environments
+    environments:
+      infradev:
+        vpc_subnet: '172.20.0.0/16' # public / private subnets are calculated programatically
+      stg:
+        vpc_subnet: '172.21.0.0/16'
+  prd:
+    id: '999999999'
+    environments:
+      infraprd:
+        vpc_subnet: '172.120.0.0/16'
+      prd:
+        vpc_subnet: '172.121.0.0/16'

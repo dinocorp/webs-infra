@@ -1,0 +1,40 @@
+# <%= CONFIG["product"].capitalize %> Infrastructure
+
+<%= CONFIG["description"] %>
+
+## Support
+
+Core support times: **<%= CONFIG["support"]["times"] %><% if CONFIG["support"]["on-call"] %> with out of hours on-call<% end %>**
+
+## <%= CONFIG["product"].capitalize %> Team Contacts
+<% CONFIG["support"]["people"].each do |position, person| %>
+### <%= position %>
+<% person.each do |k,v| %>
+- **<%= k.capitalize %>:** <%= v %><% end %>
+<% end %>
+
+## AWS Environments
+<% CONFIG["accounts"].each do |account, account_data| %>
+### <%= account.capitalize %> Environments
+**AWS Account:** [<%= account_data["alias"] %> (<%= account_data["id"] %>)](https://<%= account_data["alias"] %>.signin.aws.amazon.com/console)
+
+**Environments**
+<% account_data["environments"].each do |env, env_data| %>
+- **<%= env %>:** <%= env_data["vpc_subnet"] %><% end %>
+<% end %>
+
+## Architecture
+
+![<%= CONFIG["product"].capitalize %> Architecture Overview](docs/images/overview.jpeg "<%= CONFIG["product"].capitalize %> Architecture")
+
+## [Documentation](docs/README.md)
+
+
+## Platform Development
+### Pre-requisites
+```
+# Installation of tooling etc here
+```
+
+---
+`Re-generated: <%= Time.now.iso8601 %>`

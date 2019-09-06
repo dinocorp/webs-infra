@@ -1,0 +1,25 @@
+---
+
+aws-vpc:
+  source: "terraform-aws-modules/vpc/aws"
+  version: "2.9.0"
+
+aws-elb:
+  source: "terraform-aws-modules/elb/aws"
+  version: "2.2.0"
+
+aws-alb:
+  source: "terraform-aws-modules/alb/aws"
+  version: "4.1.0"
+
+aws-security-group:
+  source: "terraform-aws-modules/security-group/aws"
+  version: "3.1.0"
+
+aws-asg:
+  source: "terraform-aws-modules/autoscaling/aws"
+  version: "3.1.0"
+
+aws-aurora:
+  source: "terraform-aws-modules/rds-aurora/aws"
+  version: "2.3.0"
