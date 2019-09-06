@@ -90,19 +90,20 @@ namespace :terragrunt do
 
   def validate_account(ecosystem)
     begin
-      @sts_client = Aws::STS::Client.new()
-      @aws_account_id = @sts_client.get_caller_identity()["account"]
+      @aws_caller_account_id = Aws::STS::Client.new().get_caller_identity()["account"]
+      @aws_caller_account_alias = Aws::IAM::Client.new().list_account_aliases["account_aliases"][0]
     rescue StandardError => e
       STDERR.puts "Error: #{e.inspect}"
       STDERR.puts "Please assume the desired role for this action."
       exit 1
     end
-    @ecosystem_account = CONFIG["accounts"][ecosystem]["id"]
+    @ecosystem_account_id = CONFIG["accounts"][ecosystem]["id"]
+    @ecosystem_account_alias = CONFIG["accounts"][ecosystem]["alias"]
 
-    if @aws_account_id != @ecosystem_account
-       STDERR.puts "Error! You're running against an incorrect account ID."
-       STDERR.puts "  * Caller Account: #{@aws_account_id}"
-       STDERR.puts "  * #{ecosystem.capitalize} Account: #{@ecosystem_account}"
+    if @aws_caller_account_id != @ecosystem_account_id || @aws_caller_account_id != @ecosystem_account_alias
+       STDERR.puts "Error! You're running against an incorrect account ID or alias."
+       STDERR.puts "  * Caller Account (#{@aws_caller_account_alias}) ID: #{@aws_caller_account_id}"
+       STDERR.puts "  * Expected Account (#{@ecosystem_account_alias}) ID: #{@ecosystem_account_id}"
        STDERR.puts "Please assume the correct role for this account."
        exit 1
     end
