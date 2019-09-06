@@ -42,6 +42,15 @@ validating code or planning and applying terraform changes. I want these tasks t
 have some level of safety built-in such as ensuring I don't destroy production
 environments or run something on the wrong account by mistake.
 
+Example - protection from running against the wrong AWS infrastructure:
+```
+$ rake terragrunt:plan[stg]
+Error! You're running against an incorrect account ID or alias.
+  * Caller Account (dinocorp-data-sandbox) ID: 387XXXXXX683
+  * Expected Account (dinocorp-webs-dev) ID: 123456789
+Please assume the correct role for this account.
+```
+
 ### Consistency
 It's good to have consistency across product infrastructures. All too often things
 like terraform s3 backend state keys or tag standards are manually implemented
